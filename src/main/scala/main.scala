@@ -1,3 +1,4 @@
+import scala.collection.mutable.ListBuffer
 import scala.io.StdIn
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -16,6 +17,9 @@ def main(): Unit =
   chaine = "Test";
   var resultat = 0;
   var choix = 1;
+  val nombres = ListBuffer[Int]()
+  var max = 0;
+  var min = 1000;
 
   while (choix != 0) {
     println("-------MENU--------");
@@ -24,6 +28,7 @@ def main(): Unit =
     println("3 - Nombre entre 50 et 60")
     println("4 - Table de multiplication jusqu'à 40 WHILE")
     println("5 - Table de multiplication jusqu'à 40 FOR")
+    println("6 - Trie")
     println("0 - QUITTER")
     choix = StdIn.readLine().toInt;
 
@@ -83,7 +88,30 @@ def main(): Unit =
           println(s"$i x $nombre = $resultat");
         }
 
+      case 6 =>
+        nombre = 0;
+
+        println("Veuillez entrer 10 nombres :")
+        for (_ <- 1 to 10) {
+          print("Entrez un nombre : ")
+          nombre = StdIn.readLine().toInt;
+          //if (nombre < min) min = nombre;
+          //if (nombre > max) max = nombre;
+          nombres += nombre
+        }
+
+        max = nombres.max
+        min = nombres.min
+
+        val nombresTries = nombres.sorted
+
+        println(s"Le plus grand nombre est : $max")
+        println(s"Le plus petit nombre est : $min")
+        println(s"Liste triée par ordre croissant : ${nombresTries.mkString(", ")}")
   }
+
+
+
 
 
 
