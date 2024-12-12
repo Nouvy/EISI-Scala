@@ -4,5 +4,8 @@ ThisBuild / scalaVersion := "3.3.4"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "Test"
+    name := "Test",
+    libraryDependencies ++= Seq(
+      "mysql" % "mysql-connector-java" % "8.0.33"
+    )
   )

@@ -1,9 +1,26 @@
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn
+import java.sql.{Connection, DriverManager, ResultSet}
+import scala.util.Random
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 @main
 def main(): Unit =
+  val url = "jdbc:mysql://192.168.194.137:3306/scala"
+  val username = "root"
+  val password = "secret"
+
+  var connection: Connection = null
+
+  try {
+    // Connexion à la base de données
+    connection = DriverManager.getConnection(url, username, password)
+
+    println("Connexion réussie!")
+
+  } catch {
+    case e: Exception => e.printStackTrace()
+  }
 
   //Constante non modifiable
   val constante, test = "Hello";
@@ -20,7 +37,6 @@ def main(): Unit =
   val nombres = ListBuffer[Int]()
   var max = 0;
   var min = 1000;
-
   while (choix != 0) {
     println("-------MENU--------");
     println("1 - Test Scala");
@@ -29,11 +45,15 @@ def main(): Unit =
     println("4 - Table de multiplication jusqu'à 40 WHILE")
     println("5 - Table de multiplication jusqu'à 40 FOR")
     println("6 - Trie")
+    println("7 - Jeu du pendu")
+    println("8 - Creer table users")
+    println("9 - Inserer un user")
     println("0 - QUITTER")
     choix = StdIn.readLine().toInt;
 
-    choix match
+    choix match {
       case 0 =>
+        if (connection != null) connection.close()
       case 1 =>
         println(chaine2 + chaine);
         println(s"Chaine 1 : $chaine, \nNombre 1 : $nombre Nombre 2 : $nombre2");
@@ -108,6 +128,63 @@ def main(): Unit =
         println(s"Le plus grand nombre est : $max")
         println(s"Le plus petit nombre est : $min")
         println(s"Liste triée par ordre croissant : ${nombresTries.mkString(", ")}")
+
+      case 7 =>
+
+        var mots = ListBuffer[String]();
+        var lettre = "";
+        mots += "bonjour";
+        mots += "souris"
+
+        val randomIndex = Random().nextInt(mots.length);
+        val randomMot = mots(randomIndex);
+
+        var motCache = "_ " * randomMot.length;
+        println(motCache);
+
+        println("Saisir une lettre");
+        lettre = StdIn.readLine();
+
+        if (randomMot.contains(lettre)) {
+          println("Bonne réponse")
+
+        }
+
+      case 8 =>
+        try {
+          // Préparer une requête SQL
+          val statement = connection.createStatement()
+          val requete = "CREATE TABLE users\n(\n    id int,\n    name varchar(50),\n    email varchar(255),\n    password varchar(255)\n)"
+
+          // Exécuter la requête et obtenir les résultats
+          //val resultSet: ResultSet = statement.executeQuery(requete)
+          statement.execute(requete)
+
+          println("Table crée !")
+
+        } catch {
+          case e: Exception =>
+            e.printStackTrace()
+        }
+
+      case 9 =>
+        try {
+          // Préparer une requête SQL
+          val statement = connection.createStatement()
+          val requete = "INSERT INTO users (id, name, email, password) " +
+            "VALUES (1, 'Fabrice', 'fabrice@istp.com', 'password')"
+
+          // Exécuter la requête et obtenir les résultats
+          statement.execute(requete)
+
+          println("User créé !")
+
+        } catch {
+          case e: Exception =>
+            e.printStackTrace()
+        }
+
+    }
   }
 
 
