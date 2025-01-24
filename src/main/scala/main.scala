@@ -7,7 +7,7 @@ import org.apache.spark.sql.SparkSession
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 @main
 def main(): Unit =
-  val url = "jdbc:mysql://192.168.194.137:3306/scala"
+  val url = "jdbc:mysql://192.168.194.152:3306/scala"
   val username = "root"
   val password = "secret"
 
@@ -185,6 +185,9 @@ def main(): Unit =
           case e: Exception =>
             e.printStackTrace()
         }
+
+      case 10 =>
+
 
     }
   }

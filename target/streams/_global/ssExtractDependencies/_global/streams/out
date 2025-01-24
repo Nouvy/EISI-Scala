@@ -1,13 +1,8 @@
-[error] sbt.librarymanagement.ResolveException: Error downloading org.apache.spark:spark-core_3:3.4.0
+[error] sbt.librarymanagement.ResolveException: Error downloading mysql:mysql-connector-java:8.0.34
 [error]   Not found
 [error]   Not found
-[error]   not found: /Users/fabob/.ivy2/localorg.apache.spark/spark-core_3/3.4.0/ivys/ivy.xml
-[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-core_3/3.4.0/spark-core_3-3.4.0.pom
-[error] Error downloading org.apache.spark:spark-sql_3:3.4.0
-[error]   Not found
-[error]   Not found
-[error]   not found: /Users/fabob/.ivy2/localorg.apache.spark/spark-sql_3/3.4.0/ivys/ivy.xml
-[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-sql_3/3.4.0/spark-sql_3-3.4.0.pom
+[error]   not found: /Users/fabob/.ivy2/localmysql/mysql-connector-java/8.0.34/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.34/mysql-connector-java-8.0.34.pom
 [error] 	at lmcoursier.CoursierDependencyResolution.unresolvedWarningOrThrow(CoursierDependencyResolution.scala:346)
 [error] 	at lmcoursier.CoursierDependencyResolution.$anonfun$update$39(CoursierDependencyResolution.scala:315)
 [error] 	at scala.util.Either$LeftProjection.map(Either.scala:573)
@@ -36,13 +31,8 @@
 [error] 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
 [error] 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 [error] 	at java.base/java.lang.Thread.run(Thread.java:1583)
-[error] (ssExtractDependencies) sbt.librarymanagement.ResolveException: Error downloading org.apache.spark:spark-core_3:3.4.0
+[error] (ssExtractDependencies) sbt.librarymanagement.ResolveException: Error downloading mysql:mysql-connector-java:8.0.34
 [error]   Not found
 [error]   Not found
-[error]   not found: /Users/fabob/.ivy2/localorg.apache.spark/spark-core_3/3.4.0/ivys/ivy.xml
-[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-core_3/3.4.0/spark-core_3-3.4.0.pom
-[error] Error downloading org.apache.spark:spark-sql_3:3.4.0
-[error]   Not found
-[error]   Not found
-[error]   not found: /Users/fabob/.ivy2/localorg.apache.spark/spark-sql_3/3.4.0/ivys/ivy.xml
-[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-sql_3/3.4.0/spark-sql_3-3.4.0.pom
+[error]   not found: /Users/fabob/.ivy2/localmysql/mysql-connector-java/8.0.34/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.34/mysql-connector-java-8.0.34.pom
