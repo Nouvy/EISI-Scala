@@ -2,6 +2,7 @@ import scala.collection.mutable.ListBuffer
 import scala.io.StdIn
 import java.sql.{Connection, DriverManager, ResultSet}
 import scala.util.Random
+import org.apache.spark.sql.SparkSession
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 @main
@@ -178,6 +179,7 @@ def main(): Unit =
           statement.execute(requete)
 
           println("User créé !")
+
 
         } catch {
           case e: Exception =>
