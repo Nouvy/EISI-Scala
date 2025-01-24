@@ -7,6 +7,28 @@ import org.apache.spark.sql.SparkSession
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 @main
 def main(): Unit =
+
+  // Configuration système pour Java 17
+  val jvmOptions = Seq(
+    "java.base/java.nio=ALL-UNNAMED",
+    "java.base/sun.nio.ch=ALL-UNNAMED",
+    "java.base/java.lang=ALL-UNNAMED",
+    "java.base/java.util=ALL-UNNAMED"
+  )
+
+  jvmOptions.foreach(opt => System.setProperty("--add-opens", opt))
+
+  System.setProperty("spark.driver.host", "localhost")
+  System.setProperty("spark.driver.bindAddress", "localhost")
+
+  System.setProperty("spark.driver.extraJavaOptions",
+    "--add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED")
+
+  var spark = SparkSession.builder()
+    .appName("Analyse de stock")
+    .master("local[*]")
+    .getOrCreate()
+
   val url = "jdbc:mysql://192.168.194.152:3306/scala"
   val username = "root"
   val password = "secret"
@@ -49,6 +71,7 @@ def main(): Unit =
     println("7 - Jeu du pendu")
     println("8 - Creer table users")
     println("9 - Inserer un user")
+    println("10 - Afficher 10 premières lignes CSV")
     println("0 - QUITTER")
     choix = StdIn.readLine().toInt;
 
@@ -189,6 +212,22 @@ def main(): Unit =
       case 10 =>
 
 
+        val stocksDF = spark.read.option("header", "true")
+        .option("inferSchema", "true")
+        .csv("stocks_large_with_model.csv")
+
+        stocksDF.show(10)
+
+        // Afficher le nombre total de lignes
+        println(s"\n=== Nombre total de lignes : ${stocksDF.count()} ===")
+
+        // Afficher quelques statistiques de base
+        println("\n=== Statistiques de base ===")
+        stocksDF.describe().show()
+
+        // Si vous voulez voir toutes les colonnes sans troncature
+        println("\n=== Données complètes (5 premières lignes) ===")
+        stocksDF.show(5, false)  // false désactive la troncature
     }
   }
 
