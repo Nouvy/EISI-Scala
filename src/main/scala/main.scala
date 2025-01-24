@@ -29,6 +29,10 @@ def main(): Unit =
     .master("local[*]")
     .getOrCreate()
 
+  val stocksDF = spark.read.option("header", "true")
+    .option("inferSchema", "true")
+    .csv("stocks_large_with_model.csv")
+
   val url = "jdbc:mysql://192.168.194.152:3306/scala"
   val username = "root"
   val password = "secret"
@@ -72,6 +76,7 @@ def main(): Unit =
     println("8 - Creer table users")
     println("9 - Inserer un user")
     println("10 - Afficher 10 premières lignes CSV")
+    println("11 - Afficher le nombre de lignes")
     println("0 - QUITTER")
     choix = StdIn.readLine().toInt;
 
@@ -210,24 +215,13 @@ def main(): Unit =
         }
 
       case 10 =>
+        println("Combien de lignes veux-tu afficher ?")
+        val nbLignes = StdIn.readLine().toInt
+        //stocksDF.show(10)
+        stocksDF.show(nbLignes)
 
-
-        val stocksDF = spark.read.option("header", "true")
-        .option("inferSchema", "true")
-        .csv("stocks_large_with_model.csv")
-
-        stocksDF.show(10)
-
-        // Afficher le nombre total de lignes
-        println(s"\n=== Nombre total de lignes : ${stocksDF.count()} ===")
-
-        // Afficher quelques statistiques de base
-        println("\n=== Statistiques de base ===")
-        stocksDF.describe().show()
-
-        // Si vous voulez voir toutes les colonnes sans troncature
-        println("\n=== Données complètes (5 premières lignes) ===")
-        stocksDF.show(5, false)  // false désactive la troncature
+      case 11 =>
+        println("Nombre de lignes : " + stocksDF.count())
     }
   }
 
